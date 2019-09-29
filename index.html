@@ -1,0 +1,398 @@
+<!DOCTYPE html>  
+<html lang="en"> 
+<head>
+  <title>Product Recommendation - APRIORI </title>
+
+  {{tags$script(src = "https://code.jquery.com/jquery-3.1.1.min.js")}}
+  {{ useShinyjs()}}
+  {{ bootstrapLib()}}
+  {{ headContent() }}
+
+  <link href="style.css" rel="stylesheet"/>
+</head>
+<body id="bootstrap-override" class="corpo">
+  <!--    -->
+  <nav class="navbar navbar-fixed-top">
+   <div class="container-fluid">
+     <div class="navbar-header">
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"></button>
+       <span class="icon-bar"></span>   
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+
+       {{tags$head(tags$style(HTML("
+       .info-box {
+       display: block;
+       min-height: 90px;
+       background: #fff;
+       width: 400%;
+
+       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+       border-radius: 2px;
+       margin-bottom: 15px;
+       font-size: 22px;
+       margin:0;
+       padding:0;
+
+     }
+     .info-box small {
+     font-size: 22px;
+   }
+   .info-box .progress {
+   background: rgba(0, 0, 0, 0.2);
+   margin: 5px -10px 5px -10px;
+   height: 2px;
+ }
+ .info-box .progress,
+ .info-box .progress .progress-bar {
+ border-radius: 0;
+}
+.info-box .progress .progress-bar {
+background: #fff;
+}
+.info-box-icon {
+border-top-left-radius: 2px;
+border-top-right-radius: 0;
+border-bottom-right-radius: 0;
+border-bottom-left-radius: 2px;
+display: block;
+float: left;
+height: 90px;
+width: 90px;
+text-align: center;
+font-size: 45px;
+line-height: 90px;
+background: rgba(0, 0, 0, 0.2);
+}
+.info-box-icon > img {
+max-width: 100%;
+}
+.info-box-content {
+padding: 5px 10px;
+margin-left: 90px;
+}
+.info-box-number {
+display: block;
+font-weight: bold;
+font-size: 40px;
+}
+.progress-description,
+.info-box-text {
+display: block;
+font-size: 14px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.info-box-text {
+text-transform: uppercase;
+font-weight:bold;
+}
+.info-box-more {
+display: block;
+}
+.progress-description {
+margin: 0;
+}
+
+.bg-aqua,
+.callout.callout-warning,
+.alert-warning,
+.label-warning,
+.modal-warning .modal-body {
+background-color: #00ba88 !important;
+}")))}}
+
+
+<a class="navbar-brand" href="#">APRIORI RECOMMENDER</a>
+</div>
+<div class="collapse navbar-collapse" id="myNavbar">
+
+ <ul class="nav navbar-nav">
+
+  <ul id="sigbuttons" class="nav navbar-nav navbar-right">
+   <li><a href="#"><span class="glyphicon glyphicon-user"></span> Cadastrar</a></li>
+   <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+ </ul>
+</ul>
+
+</div>
+</div>
+
+</nav>
+
+<!--
+        <div class="container">
+            <div class="row">
+                 <div class="col-lg-12 logo">
+                </div>
+                <div class="col-lg-4 navega">
+                    <nav id="barrasup" class="navbar navbar-fixed-top navega navbar-custom">
+                        <ul class="nav navbar-nav navbar-custom">
+                            <li class="active" data-toggle="tab"> <a href="#ini" >Início</a> </li>
+                            <li data-toggle="tab"> <a href="#ini" >Análises e Resultados</a> </li>
+                            <li data-toggle="tab" class="selected"><a href="#ini" >Dados </a> </li>
+                            <li data-toggle="tab"> <a class="dropdown" href="#t">Sobre nós </a> </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+          </div>-->
+
+          <div class="container-fluid tab conteudo">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="nav nav-tabs" >
+
+                  <li><a data-toggle = "tab" href="#2">Tabela de recomendação</a></li>
+                  <li><a data-toggle = "tab" href="#8">Atualizar Recomendação</a></li>
+
+                </ul>
+              </div>
+            </div>
+
+            <!------------------------------>
+            <!--- ABA PAINEL LATERAL ------->
+            <!------------------------------>
+
+
+
+            <div class=" tab-content clearfix content ">
+              <div id="rpan2" class="navigation rpanel ">
+                <div class="container-fluid">
+                  <div  class="row">
+
+                    <div class="col-lg-12">
+                      {{useShinyjs()}}
+                      {{engrenagem}}
+
+                      <h4>Painel</h4>   
+                      <hr>
+
+                      <!----- -----------------------------> 
+
+                      <div id="menuitens" class="list-group">
+                       <a data-toggle="tab" href="#1" aria-expanded="false">
+                         <button type="button" class="list-group-item"> 
+                          {{menuitem1}} Dashboard
+                        </button>
+                      </a>
+
+                      <a data-toggle="tab" href="#9" aria-expanded="false">
+                        <button type="button" class="list-group-item">
+                          {{menuitem2}} Carrinho
+                        </button>
+                      </a>
+                      <button type="button" class="list-group-item"> {{menuitem3}} Ajuda</button>                                                 
+                    </div>
+
+                    <!----- ----------------------------->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!------------------------------>
+            <!-------- ABA DASHBOARD ------->
+            <!------------------------------>
+            <div class="tab-pane active" id="1">
+              <div class="container">
+                <div class="row">
+
+                  <div class="col-lg-4 caixa">
+                    {{info}}
+
+                  </div>
+                  <div class="col-lg-4 caixa ">
+                    {{info2}}
+                  </div>
+                </div>               
+                <div class="col-lg-4">
+                  <div id="head1" class="painel-heading">Pareto para as 10 categorias que mais tiveram transações </div>
+                  <div id="head2" class="painel-heading">Top 10 de Lojas que tiveram o maior volume de transações</div>
+                </div>                               
+
+                <div class="row graficos">
+                  <div class=row>
+                  </div>
+
+                  <div id="kpi4" class="col-lg-4 panell">                         
+                   {{kpi4}} 
+                 </div>
+                 <div class="col-lg-4 panell ">
+                  {{kpi5}}                    
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div id="head4" class="painel-heading">Transações por perfil</div>
+              </div>
+              <div class="row graficos">
+                <div class="col-lg-9 time-series-panel ">
+                  {{kpi6}}
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div id="head1" class="painel-heading">Pareto para os produtos mais recomendados</div>
+                <div id="head2" class="painel-heading">Pareto para as categorias mais recomendadas</div>
+              </div>
+              <div class="row graficos">
+
+                <div class=row>
+                </div>
+
+                <div class="col-lg-4 panell">                         
+                 {{kpi1}} 
+               </div>
+
+               <div class="col-lg-4 panell ">
+                {{kpi2}}
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <!------------------------------>
+        <!--- ABA TABELA RECOMENDACAO -->
+        <!------------------------------>
+
+        <div class="tab-pane" id="2">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 tabela" style="font-size: 80%">
+                {{tab2}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!------------------------------>
+        <!--- ABA UPLOAD ARQUIVO ------->
+        <!------------------------------>
+
+        <div class="tab-pane" id="8">
+          <div class="container">
+            <div class="row">
+
+
+
+
+
+              <div id="entrada" class="col-lg-4 panel">
+                <div id="head3" class="painel-heading">Carregue o arquivo</div>
+                <script src="www/alert.js"></script>
+                {{FileInputjrs}}
+                {{confianca_seletor}}
+                {{suporte_seletor}} 
+                {{colnamestab}}
+                {{btnRecomend}}
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!------------------------------>
+        <!--- ABA CARRINHO DE COMPRAS -->
+        <!------------------------------>
+        <div class="tab-pane" id="9">
+          <div class="container">
+            <div class="row compras">
+              <form name="order" id="order">
+               {{produtosAdd}}
+
+               <table>
+                <tr>
+                  <td>
+
+
+                  </td>
+
+                </tr>
+
+                <div class="formsCarrinho">
+                  <tr >
+                    <td>
+                      <label for="quantity">Quantidade:</label>
+                    </td>
+                    <td>
+                      <input id="quantity" name="quantity" required/>
+                    </td>
+                  </tr>
+
+
+                  <tr >
+                    <td>
+                      <label for="price">Valor:</label>
+                    </td>
+                    <td>
+                      <input id="price" name="price" size="28" required/>
+                    </td>
+                  </tr>
+                </div>
+
+              </table>
+
+              <input type="reset" name="reset" id="resetbtn1" class="resetbtn" value="Limpar Formulário" />
+              <input type="button" id="btnAddProduct1" onClick="addProduct()" value="Adicionar novo produto">
+            </form>
+            <hr>
+            <form name="order" id="order2">
+              {{prodrecomendado2}}
+              <table>
+
+                <div class="formsCarrinho">
+                  <tr >
+                    <td>
+                      <label for="quantityRec">Quantidade:</label>
+                    </td>
+                    <td>
+                      <input id="quantityRec"  width="196px" required/>
+                    </td>
+                  </tr>
+
+                  <tr >
+                    <td>
+                      <label for="priceRec">Valor:</label>
+                    </td>
+
+                    <td>
+                      <input id="priceRec"  size="28" required/>
+                    </td>
+                  </tr>
+                </div>
+              </form>
+
+
+            </table>
+            <input type="reset" name="reset" id="resetbtn2" class="resetbtn" value="Limpar Formulário" />
+            <input type="button" id="btnAddProduct2" onClick="addProduct2()" value="Adicionar novo produto" >
+            {{desconto}}
+
+            <br>
+            <p id="demo"></p> <br/>
+            <h2> Carrinho de compras </h2>
+            <p id="demo2"></p>
+
+            <h2>Valor total:</h2>
+            <p id="demo3"></p>
+
+
+
+          </div>
+        </div>
+        <div>
+      <!--  </div>
+        <nav class="navbar navbar-nav navbar-default navbar-fixed-bottom">
+
+        </nav>
+      </div>-->
+    </body>
+    {{includeScript("www/alert.js")}}
+
+    </html>
+
